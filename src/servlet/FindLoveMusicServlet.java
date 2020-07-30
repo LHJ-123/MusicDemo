@@ -3,6 +3,7 @@ package servlet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.MusicDao;
 import entity.Music;
+import entity.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,26 +14,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/findMusic")
-public class FindMusicServlet extends HttpServlet {
+@WebServlet("/findLoveMusic")
+public class FindLoveMusicServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         resp.setContentType("application/json;charset=utf-8");
-        String musicName = req.getParameter("musicName");
+        String loveMusicName = req.getParameter("loveMusicName");
         MusicDao musicDao = new MusicDao();
+        User user = (User)req.getSession().getAttribute("user");
+        int userId = user.getId();
         List<Music> musicList = new ArrayList<>();
-        if (musicName != null) {
-            musicList = musicDao.ifMusic(musicName);
+        if(loveMusicName != null) {
+            musicList = musicDao.ifMusicLove(loveMusicName,userId);
         }else {
-            musicList = musicDao.findMusic();
+            musicList = musicDao.findLoveMusic(userId);
         }
-        for (Music music : musicList) {
-            System.out.println(music.getUrl());
-        }
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(resp.getWriter(),musicList);
     }
-
 }
-
