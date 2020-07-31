@@ -22,10 +22,24 @@
             top: 130px;
         }
     </style>
+    <style>
+        body{
+            background-image: url("images/Screenshot_20200722_172659.jpg");
+            /*  background-size:100% 100%;
+              background-attachment: fixed;*/
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $("#submit1").click(function () {
+                var name = $("#exampleInputName2").val();
+                load(name);
+            });});
+    </script>
 </head>
 <body>
 <div class="container">
-    <h3 style="text-align: center">MV播放页面,等你来实现</h3>
+    <h3 style="text-align: center">小猪佩奇的MV</h3>
     <div style="float: left;">
         <form class="form-inline">
             <div class="form-group">
@@ -36,7 +50,7 @@
         </form>
     </div>
     <div style="float: right;margin-bottom: 15px">
-        <a class="btn btn-primary" href="/GaoBoMusic/list.html">回到首页</a>
+        <a class="btn btn-primary" href="/list.html">回到首页</a>
         <a class="btn btn-primary" href="/loveMusic.html">我喜欢的MV</a>
         <a class="btn btn-primary" href="/upload.html">添加MV</a>
     </div>
