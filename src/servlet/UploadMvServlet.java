@@ -18,8 +18,10 @@ import java.util.List;
 
 @WebServlet("/upload2")
 public class UploadMvServlet extends HttpServlet {
-    private final String SAVEPATH1 = "F:\\GIT\\MusicDemo\\web\\video";
 
+    private final String SAVEPATH1 = "root/java/apache-tomcat-8.5.57/webapps/MusicDemo1/video";
+    //F:\GIT\MusicDemo\web\video
+    //root/java/apache-tomcat-8.5.57/webapps/MusicDemo1/video
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");

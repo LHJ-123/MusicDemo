@@ -18,7 +18,7 @@ import java.util.List;
 
 @WebServlet("/upload")
 public class UploadMusicServlet extends HttpServlet {
-    private final String SAVEPATH="F:\\GIT\\MusicDemo\\web\\music";
+    private final String SAVEPATH="root/java/apache-tomcat-8.5.57/webapps/MusicDemo1/music";
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
@@ -26,8 +26,8 @@ public class UploadMusicServlet extends HttpServlet {
 
         User user = (User)req.getSession().getAttribute("user");
         if (user == null) {
-            System.out.println("请登录后再上传Mv");
-            resp.getWriter().write("<h2>请登录后再上传Mv"+"</h2>");
+            System.out.println("请登录后再上传音乐");
+            resp.getWriter().write("<h2>请登录后再上传音乐"+"</h2>");
             return;
         }else {
             FileItemFactory factory = new DiskFileItemFactory();

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MV播放页面</title>
+    <!-- 1. 导入CSS的全局样式 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <!-- 3. 导入bootstrap的js文件 -->
+    <style type="text/css">
+        td, th {
+            text-align: center;
+        }
+        .mydiv {
+            width: 1000px;
+            height: 1000px;
+            position: absolute;
+            left: 200px;
+            top: 130px;
+        }
+    </style>
+    <style>
+        body{
+            background-image: url("images/Screenshot_20200722_172659.jpg");
+            /*  background-size:100% 100%;
+              background-attachment: fixed;*/
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            load();
+        });
+        function load(mvName){
+            $.ajax({
+                url: "/MusicDemo1/findMv",
+                type:"get",
+                data:{mvName:mvName},
+                dataType: "json",
+                success: function(data){
+                    console.log(data.length);
+                    console.log(data);
+                    var s = "";
+                    for (var i = 0; i < data.length; i++) {
+                        var mvUrl = data[i].url+".mp4";
+                        s += "<div class=\"video_div\">";
+                        s +="<video src=\""+mvUrl+"\" + controls=\"controls\" + width=\"100%\"></video>";
+                        s +="<font color=\"#FFFFFF\">";
+                        s +="<h3 style=\"margin-left: auto; margin-right: auto;\">"+data[i].title+"</h3>";
+                        s +="<h4 style=\" margin-left: auto\">"+data[i].writer+"</h4>";
+                        s +="</font>";
+                        s +="<button class='am-btn am-btn-sucess' onclick=\"deleteInfo("+data[i].id+")\">删除</button>";
+                        s +="</div>";
+                    }
+
+                    $("#mydiv").html(s);
+
+                    var audios = document.getElementsByTagName("audio");
+                    // 暂停函数
+                    function pauseAll() {
+                        var self = this;
+                        [].forEach.call(audios, function (i) {
+                            // 将audios中其他的audio全部暂停
+                            i !== self && i.pause();
+                        })
+                    }
+                    // 给play事件绑定暂停函数
+                    [].forEach.call(audios, function (i) {
+                        i.addEventListener("play", pauseAll.bind(i));
+                    });
+                }
+            });
+        }
+
+
+        function deleteInfo(obj) {
+            console.log(obj);
+            $.ajax({
+                url:"/MusicDemo1/deleteMvServlet",
+                type: "post",
+                //发送给后端的数据
+                data: {"id": obj},
+                dataType: "json",
+                success: function (data) {
+                    if(data.msg===true){
+                        alert("删除成功");
+                        window.location.href="MV.html";
+                    }else{
+                        alert("删除失败");
+                    }
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+
+
+<div class="container">
+    <h3 style="text-align: center">小猪佩奇的MV</h3>
+
+    <div style="float: right;margin-bottom: 15px">
+        <a class="btn btn-primary" href="/MusicDemo1/list.html">回到首页</a>
+
+        <a class="btn btn-primary" href="/MusicDemo1/upload2.html">添加MV</a>
+    </div>
+<div class="mydiv" id="mydiv">
+
+</div>
+
+
+</div>
+</body>
+</html>

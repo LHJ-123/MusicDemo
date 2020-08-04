@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class DBUtils {
     private static String url = "jdbc:mysql://127.0.0.1:3306/musicserver?useSSL=false";
-    private static String password = "xxxxxx";
+    private static String password = "";
     private static String username = "root";
     private static volatile DataSource DATASOURCE;
     private static DataSource getDataSource(){

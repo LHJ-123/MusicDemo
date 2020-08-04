@@ -30,7 +30,7 @@ public class DeleteServlet extends HttpServlet {
         int delete = musicDao.deleteMusicById(id);
         Map<String,Object> map = new HashMap<>();
         if (delete == 1) {
-            File file = new File("F:\\GIT\\MusicDemo\\web\\"+music.getUrl()+".mp3");
+            File file = new File("root/java/apache-tomcat-8.5.57/webapps/MusicDemo1/"+music.getUrl()+".mp3");
             if (file.delete()) {
                  map.put("msg",true);
                 System.out.println("服务器删除成功");

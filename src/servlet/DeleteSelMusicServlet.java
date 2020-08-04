@@ -27,7 +27,7 @@ public class DeleteSelMusicServlet extends HttpServlet {
             Music music = musicDao.findMusicById(id);
             int delete = musicDao.deleteMusicById(id);
             if(delete == 1) {
-                File file = new File("F:\\GIT\\MusicDemo\\web\\"+music.getUrl()+".mp3");
+                File file = new File("root/java/apache-tomcat-8.5.57/webapps/MusicDemo1/"+music.getUrl()+".mp3");
                 if (file.delete()) {
                     sum+=delete;
                 }else {
